@@ -25,27 +25,27 @@ public class Second {
         precomputed = new HashMap<>();
     }
 
-    public static BigInteger f(BigInteger n, BigInteger m) {
-        if (m.equals(BigInteger.ZERO) || n.equals(BigInteger.ZERO)) {
+    public static BigInteger f(BigInteger m, BigInteger r) {
+        if (m.equals(BigInteger.ZERO) || r.equals(BigInteger.ZERO)) {
             return BigInteger.ONE;
         }
-        if (n.equals(m)) {
+        if (r.equals(m)) {
             return BigInteger.ONE;
         }
 
-        Pair<BigInteger, BigInteger> pair = new Pair<>(n, m);
+        Pair<BigInteger, BigInteger> pair = new Pair<>(m, r);
         if (precomputed.containsKey(pair)) {
             return precomputed.get(pair);
         }
-        BigInteger res = f(n.add(BigInteger.ONE.negate()), m.add(BigInteger.ONE.negate()))
-                .add(f(n.add(BigInteger.ONE.negate()), m));
+        BigInteger res = f(m.add(BigInteger.ONE.negate()), r.add(BigInteger.ONE.negate()))
+                .add(f(m.add(BigInteger.ONE.negate()), r));
         precomputed.put(pair, res);
         return res;
     }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        BigInteger m = new BigInteger(scanner.next()), n = new BigInteger(scanner.next());
-        System.out.println(f(n, m));
+        BigInteger m = new BigInteger(scanner.next()), r = new BigInteger(scanner.next());
+        System.out.println(f(m, r));
     }
 }
